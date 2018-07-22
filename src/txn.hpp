@@ -7,11 +7,15 @@ public:
     std::shared_ptr<nogdb::Txn> base;
 
     static NAN_MODULE_INIT(Init);
-    static NAN_METHOD(New);
-    static NAN_METHOD(commit);
+    static Nan::Persistent<v8::FunctionTemplate> constructor;
 
 private:
     explicit Txn(std::shared_ptr<nogdb::Txn> txn_) : base(txn_) {} ;
 
-    static Nan::Persistent<v8::FunctionTemplate> constructor;
+    static NAN_METHOD(New);
+    static NAN_METHOD(commit);
+    static NAN_METHOD(rollback) ;
+    static NAN_METHOD(getTxnId) ;
+    static NAN_METHOD(getVersionId) ;
+    static NAN_METHOD(getTxnMode) ;
 };
